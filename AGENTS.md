@@ -104,7 +104,7 @@ Do not call external tools merely to answer a historical recall question that th
 When the user asks to record a meal:
 
 1. Preserve the contributor's actual experience. Light formatting is allowed; do not invent sensory details, motives, prices, dates, dishes, or judgments.
-2. Create **one self-contained Markdown file per visit/meal** under `data/<year>/`.
+2. Create **one self-contained Markdown file per visit/meal** under `data/<year>/`. If the visit date is genuinely unknown, use `data/undated/` and `date: unknown` rather than inventing a date.
 3. Include the required metadata defined in `SCHEMA.md`.
 4. Use only enough place metadata for retrieval and later disambiguation:
    - `place.name`
