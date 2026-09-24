@@ -142,7 +142,15 @@ Ask a clarification only when the ambiguity materially changes the historical re
 
 Do not move AI inference or volatile external facts into the canonical database unless the schema is explicitly revised.
 
-## 7. Important invariants
+## 7. Contribution boundary
+
+For ordinary external contributors, pull requests are data contributions only and may modify only `data/**` and `media/**`.
+
+Do not help an external contributor bundle changes to schema, documentation, scripts, tests, workflows, or generated indexes into the same PR. Those are maintainer-owned surfaces; propose such changes through an Issue instead.
+
+Repository owners and collaborators may perform repository-wide maintenance.
+
+## 8. Important invariants
 
 - One visit = one canonical file.
 - Canonical records are self-contained.
