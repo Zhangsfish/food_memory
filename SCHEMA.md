@@ -82,15 +82,18 @@ The field is a claim carried by the record; Git history provides additional prov
 
 Historical visit date as known by the contributor.
 
-Accepted precision:
+Accepted values:
 
 ```text
 YYYY-MM-DD
 YYYY-MM
 YYYY
+unknown
 ```
 
-Do not fabricate missing precision.
+Use `unknown` when the contributor cannot reliably supply even the year. Do not fabricate missing precision.
+
+Dated records normally live under `data/<year>/`. Records with `date: unknown` live under `data/undated/`. If the date is later recovered, update the metadata and move the file, but keep the experience `id` stable.
 
 ### `place`
 
