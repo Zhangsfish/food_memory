@@ -93,8 +93,8 @@ def validate_meta(meta: dict[str, Any], path: Path | None = None) -> None:
     _nonempty_string(meta.get("author"), "author")
 
     date = _nonempty_string(meta.get("date"), "date")
-    if not DATE_RE.fullmatch(date):
-        raise RecordError("date must be YYYY, YYYY-MM, or YYYY-MM-DD")
+    if date != "unknown" and not DATE_RE.fullmatch(date):
+        raise RecordError("date must be YYYY, YYYY-MM, YYYY-MM-DD, or unknown")
 
     place = meta.get("place")
     if not isinstance(place, dict):
