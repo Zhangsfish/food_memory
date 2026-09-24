@@ -1,0 +1,12 @@
+{
+  "area": "CN/北京",
+  "partitions": [
+    {
+      "count": 1,
+      "path": "indexes/by-place/CN/北京/undated.jsonl",
+      "period": "undated"
+    }
+  ],
+  "record_count": 1,
+  "schema_version": 1
+}

@@ -1,7 +1,19 @@
 {
-  "authors": [],
+  "authors": [
+    {
+      "author": "github:Zhangsfish",
+      "manifest": "indexes/by-author/github-Zhangsfish--66504de7/manifest.json",
+      "record_count": 1
+    }
+  ],
   "note": "Generated mechanically from data/. No AI summaries.",
-  "places": [],
-  "record_count": 0,
+  "places": [
+    {
+      "area": "CN/北京",
+      "manifest": "indexes/by-place/CN/北京/manifest.json",
+      "record_count": 1
+    }
+  ],
+  "record_count": 1,
   "schema_version": 1
 }
