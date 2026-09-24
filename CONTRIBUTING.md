@@ -20,11 +20,33 @@ You may use AI to structure your own experience, but the underlying observations
 ## How to add an experience
 
 1. Read `SCHEMA.md`.
-2. Add one file under `data/<year>/`.
+2. Add one file under `data/<year>/` (or `data/undated/` if the visit date is genuinely unknown).
 3. Keep the record self-contained.
 4. Add optional photos/receipts under `media/<experience-id>/`.
 5. Do **not** edit `indexes/`; they are generated.
 6. Open a pull request.
+
+## External PR scope
+
+For ordinary external contributors, pull requests may change only:
+
+- `data/**`
+- `media/**`
+
+The repository automatically rejects external PRs that modify maintainer-owned paths such as:
+
+- `AGENTS.md`
+- `SCHEMA.md`
+- `README.md`
+- `CONTRIBUTING.md`
+- `scripts/**`
+- `tests/**`
+- `.github/**`
+- `indexes/**`
+
+Repository owners and collaborators may make repository-wide maintenance changes.
+
+If you want to propose a schema, documentation, validation, workflow, or indexing change, open an Issue and explain the proposal instead of bundling it into a food-data PR.
 
 ## Writing principles
 
