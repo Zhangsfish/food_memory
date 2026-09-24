@@ -1,0 +1,55 @@
+name: External contribution scope
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  check-scope:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+
+    steps:
+      - name: Restrict external contributors to data and media
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const trustedAssociations = new Set(["OWNER", "MEMBER", "COLLABORATOR"]);
+            const association = context.payload.pull_request.author_association || "NONE";
+
+            if (trustedAssociations.has(association)) {
+              core.info(`Trusted repository contributor (${association}); repository-wide changes are allowed.`);
+              return;
+            }
+
+            const files = await github.paginate(
+              github.rest.pulls.listFiles,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                per_page: 100,
+              }
+            );
+
+            const allowedPrefixes = ["data/", "media/"];
+            const invalid = files
+              .map(file => file.filename)
+              .filter(path => !allowedPrefixes.some(prefix => path.startsWith(prefix)));
+
+            if (invalid.length > 0) {
+              core.setFailed(
+                [
+                  "External contribution PRs may only change data/** and media/**.",
+                  "The following paths are maintainer-only:",
+                  ...invalid.map(path => `- ${path}`),
+                  "",
+                  "If you want to propose a schema, documentation, script, test, workflow, or index change, open an Issue for maintainer review instead.",
+                ].join("\n")
+              );
+              return;
+            }
+
+            core.info("External contribution scope is valid: only data/** and/or media/** changed.");
