@@ -28,6 +28,8 @@ def safe_author_dir(author: str) -> str:
 
 
 def date_partition(date: str) -> str:
+    if date == "unknown":
+        return "undated"
     if len(date) >= 7:
         return date[:7]
     return date[:4]
