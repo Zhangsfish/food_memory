@@ -3,7 +3,7 @@
     {
       "author": "github:Zhangsfish",
       "manifest": "indexes/by-author/github-Zhangsfish--66504de7/manifest.json",
-      "record_count": 2
+      "record_count": 3
     }
   ],
   "note": "Generated mechanically from data/. No AI summaries.",
@@ -11,9 +11,9 @@
     {
       "area": "CN/北京",
       "manifest": "indexes/by-place/CN/北京/manifest.json",
-      "record_count": 2
+      "record_count": 3
     }
   ],
-  "record_count": 2,
+  "record_count": 3,
   "schema_version": 1
 }

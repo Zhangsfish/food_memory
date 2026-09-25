@@ -2,7 +2,7 @@
   "area": "CN/北京",
   "partitions": [
     {
-      "count": 1,
+      "count": 2,
       "path": "indexes/by-place/CN/北京/2026-09.jsonl",
       "period": "2026-09"
     },
@@ -12,6 +12,6 @@
       "period": "undated"
     }
   ],
-  "record_count": 2,
+  "record_count": 3,
   "schema_version": 1
 }

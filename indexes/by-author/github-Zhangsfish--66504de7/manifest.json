@@ -2,7 +2,7 @@
   "author": "github:Zhangsfish",
   "partitions": [
     {
-      "count": 1,
+      "count": 2,
       "path": "indexes/by-author/github-Zhangsfish--66504de7/2026-09.jsonl",
       "period": "2026-09"
     },
@@ -12,6 +12,6 @@
       "period": "undated"
     }
   ],
-  "record_count": 2,
+  "record_count": 3,
   "schema_version": 1
 }
