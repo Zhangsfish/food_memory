@@ -1,0 +1,15 @@
+{
+  "area": "CN/北京",
+  "partitions": [
+    {
+      "count": 1,
+      "path": "indexes/by-place/auto-CN-Khan-Baba-2--a2890c7e--58581a72/2026-09.jsonl",
+      "period": "2026-09"
+    }
+  ],
+  "place_id": null,
+  "place_key": "auto-CN-Khan-Baba-2--a2890c7e",
+  "place_name": "汗巴巴Khan Baba（五道口2店）",
+  "record_count": 1,
+  "schema_version": 2
+}

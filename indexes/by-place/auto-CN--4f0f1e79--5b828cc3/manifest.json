@@ -1,0 +1,15 @@
+{
+  "area": "CN/北京",
+  "partitions": [
+    {
+      "count": 1,
+      "path": "indexes/by-place/auto-CN--4f0f1e79--5b828cc3/undated.jsonl",
+      "period": "undated"
+    }
+  ],
+  "place_id": null,
+  "place_key": "auto-CN--4f0f1e79",
+  "place_name": "甲秀楼缘餐厅",
+  "record_count": 1,
+  "schema_version": 2
+}

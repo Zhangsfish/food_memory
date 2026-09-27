@@ -1,0 +1,15 @@
+{
+  "area": "CN/北京",
+  "partitions": [
+    {
+      "count": 1,
+      "path": "indexes/by-place/auto-CN--9ff342bf--d11407a7/2026-09.jsonl",
+      "period": "2026-09"
+    }
+  ],
+  "place_id": null,
+  "place_key": "auto-CN--9ff342bf",
+  "place_name": "叶么姨·爆炒三嫩",
+  "record_count": 1,
+  "schema_version": 2
+}

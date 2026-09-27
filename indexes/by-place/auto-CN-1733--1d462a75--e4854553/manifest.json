@@ -1,0 +1,15 @@
+{
+  "area": "CN/北京",
+  "partitions": [
+    {
+      "count": 1,
+      "path": "indexes/by-place/auto-CN-1733--1d462a75--e4854553/2026-09.jsonl",
+      "period": "2026-09"
+    }
+  ],
+  "place_id": null,
+  "place_key": "auto-CN-1733--1d462a75",
+  "place_name": "京潮烫捞（1733店）",
+  "record_count": 1,
+  "schema_version": 2
+}

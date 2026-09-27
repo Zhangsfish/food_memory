@@ -1,0 +1,15 @@
+{
+  "area": "CN/北京",
+  "partitions": [
+    {
+      "count": 1,
+      "path": "indexes/by-place/auto-CN-Habibi-Restaurant--a2d77fd5--c48e470c/2026-09.jsonl",
+      "period": "2026-09"
+    }
+  ],
+  "place_id": null,
+  "place_key": "auto-CN-Habibi-Restaurant--a2d77fd5",
+  "place_name": "Habibi Restaurant哈比比巴基…",
+  "record_count": 1,
+  "schema_version": 2
+}

@@ -1,4 +1,11 @@
 {
+  "areas": [
+    {
+      "area": "CN/北京",
+      "manifest": "indexes/by-area/CN/北京/manifest.json",
+      "record_count": 5
+    }
+  ],
   "authors": [
     {
       "author": "github:Zhangsfish",
@@ -6,14 +13,67 @@
       "record_count": 5
     }
   ],
-  "note": "Generated mechanically from data/. No AI summaries.",
+  "date_range": {
+    "first": "2026-09-24",
+    "last": "2026-09-26"
+  },
+  "note": "Generated mechanically from canonical experience files under data/. No AI profile or recommendation is stored in these indexes.",
   "places": [
     {
       "area": "CN/北京",
-      "manifest": "indexes/by-place/CN/北京/manifest.json",
-      "record_count": 5
+      "manifest": "indexes/by-place/auto-CN--4f0f1e79--5b828cc3/manifest.json",
+      "place_id": null,
+      "place_key": "auto-CN--4f0f1e79",
+      "place_name": "甲秀楼缘餐厅",
+      "record_count": 1
+    },
+    {
+      "area": "CN/北京",
+      "manifest": "indexes/by-place/auto-CN--9ff342bf--d11407a7/manifest.json",
+      "place_id": null,
+      "place_key": "auto-CN--9ff342bf",
+      "place_name": "叶么姨·爆炒三嫩",
+      "record_count": 1
+    },
+    {
+      "area": "CN/北京",
+      "manifest": "indexes/by-place/auto-CN-1733--1d462a75--e4854553/manifest.json",
+      "place_id": null,
+      "place_key": "auto-CN-1733--1d462a75",
+      "place_name": "京潮烫捞（1733店）",
+      "record_count": 1
+    },
+    {
+      "area": "CN/北京",
+      "manifest": "indexes/by-place/auto-CN-Habibi-Restaurant--a2d77fd5--c48e470c/manifest.json",
+      "place_id": null,
+      "place_key": "auto-CN-Habibi-Restaurant--a2d77fd5",
+      "place_name": "Habibi Restaurant哈比比巴基…",
+      "record_count": 1
+    },
+    {
+      "area": "CN/北京",
+      "manifest": "indexes/by-place/auto-CN-Khan-Baba-2--a2890c7e--58581a72/manifest.json",
+      "place_id": null,
+      "place_key": "auto-CN-Khan-Baba-2--a2890c7e",
+      "place_name": "汗巴巴Khan Baba（五道口2店）",
+      "record_count": 1
     }
   ],
   "record_count": 5,
-  "schema_version": 1
+  "schema_version": 2,
+  "time": {
+    "partitions": [
+      {
+        "count": 4,
+        "path": "indexes/by-time/2026-09.jsonl",
+        "period": "2026-09"
+      },
+      {
+        "count": 1,
+        "path": "indexes/by-time/undated.jsonl",
+        "period": "undated"
+      }
+    ]
+  }
 }
