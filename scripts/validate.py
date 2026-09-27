@@ -108,6 +108,12 @@ def validate_meta(meta: dict[str, Any], path: Path | None = None) -> None:
         raise RecordError("place.area must start with a two-letter uppercase country code")
     if any(s in {".", ".."} for s in segments):
         raise RecordError("place.area contains an invalid path segment")
+
+    if "id" in place:
+        place_id = _nonempty_string(place.get("id"), "place.id")
+        if not place_id.startswith("place_"):
+            raise RecordError("place.id must begin with place_")
+
     if "hint" in place:
         _nonempty_string(place.get("hint"), "place.hint")
 

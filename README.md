@@ -1,87 +1,85 @@
-# food_memory
+# Larry.food / Food Memory
 
-An open, AI-readable record of first-person eating experiences.
+A public, AI-readable memory of one person's real eating life.
 
-This repository is a **data layer**, not a restaurant-ranking app. It stores what people actually ate, where, when, what they paid, and what they thought in their own words. AI clients can retrieve those records and decide what is relevant for a particular question or person.
+This repository is Larry's canonical food-memory layer. It is designed so that an AI can answer two kinds of questions without rereading the whole history:
 
-## Two primary use cases
+1. Owner questions: "What have I eaten before?", "How has my taste changed?", "What should I avoid repeating?"
+2. Visitor questions: "Is Larry's experience useful for me?", "What did Larry eat in this place?", "Which of his records match my needs?"
 
-1. **Recall my own food history**  
-   Example: “What noodles have I eaten before?” or “What patterns do you see in what I tend to like?”  
-   Retrieval axis: `author`.
+The key idea is simple:
 
-2. **Read human traces from a place**  
-   Example: “I’m visiting Shijiazhuang. What have people recorded eating there?”  
-   Retrieval axis: `place.area`.
+- experiences are evidence;
+- Larry's own declarations are self-reports;
+- AI profiles are derived interpretations;
+- indexes are generated retrieval views.
 
-A personalized destination query can combine both: read a user’s own history, read records from the destination, then let the AI reason across the two.
+Never collapse those four things into one "true profile".
 
-## Core boundary
+## Daily write path
 
-The repository stores **historical experience data**:
+Normal use should be low-friction:
 
-- author
-- date
-- restaurant/place name
-- coarse area used for retrieval
-- enough optional place hint to distinguish branches when necessary
-- dishes
-- the price actually reported and its meaning
-- first-person experience text
-- optional contributor/place relationship, commercial disclosure, and attachments
+1. Larry gives an authorized AI a photo/order screenshot plus a short first-person reaction.
+2. The AI creates exactly one new Markdown experience under data/.
+3. GitHub Actions validates the record and rebuilds indexes.
+4. Nothing else needs to be hand-maintained for that meal.
 
-The repository does **not** try to maintain information that can be obtained or recomputed later:
+A meal entry never overwrites an older opinion. Repeated visits to the same place create repeated experiences.
 
-- exact coordinates
-- canonical street address
-- current opening hours
-- whether a restaurant is still open
-- current route, walking time, or distance
-- restaurant rankings or universal scores
-- inferred taste profiles
-- AI-generated recommendations
+## Canonical vs generated
 
-Those belong to external place/route services or to the AI at query time.
+Human/authorized-agent maintained:
+- data/ — first-person eating experiences
+- self/events/ — explicit self-declarations, only when Larry intentionally makes one
+- media/ — optional public attachments
 
-## Source of truth
+Generated or replaceable:
+- indexes/ — deterministic retrieval views
+- derived/ — optional AI-generated food-profile snapshots; never canonical truth
 
-`data/` is the only canonical human-maintained dataset.
+## Retrieval layers
 
-Each meal/visit is one self-contained Markdown file. Generated indexes under `indexes/` are derived views and can always be rebuilt.
+An AI should not scan every record.
 
-Humans and agents should **never manually maintain duplicated restaurant, contributor, dish, or taste-profile databases**.
+Use this order:
+
+1. indexes/catalog.json — discover what exists.
+2. Relevant index:
+   - by-time — recent/history questions
+   - by-area — city/locality questions
+   - by-place — repeated visits to the same place
+   - by-author — compatibility/general tooling
+3. Open only the relevant canonical source files under data/ when exact wording or evidence matters.
+4. If a derived profile exists, treat it as a cache and verify important claims against evidence.
 
 ## Repository layout
 
-```text
-food_memory/
-├── README.md
-├── AGENTS.md
-├── SCHEMA.md
-├── CONTRIBUTING.md
-├── data/                         # canonical experience records
-├── media/                        # optional attachments
-├── indexes/                      # generated, not hand-edited
-│   ├── catalog.json
-│   ├── by-author/
-│   └── by-place/
-├── scripts/
-│   ├── validate.py
-│   └── build_indexes.py
-├── tests/
-│   └── test_contract.py
-└── .github/
-    ├── PULL_REQUEST_TEMPLATE.md
-    └── workflows/
-        └── validate-and-index.yml
-```
+    food_memory/
+    ├── README.md
+    ├── AGENTS.md
+    ├── SCHEMA.md
+    ├── HOW_TO_USE.md
+    ├── CONTRIBUTING.md
+    ├── data/                 # canonical experience records
+    ├── self/
+    │   └── README.md         # self-declaration protocol
+    ├── derived/
+    │   └── README.md         # optional AI profile snapshots
+    ├── media/                # optional public attachments
+    ├── indexes/              # generated retrieval views
+    ├── scripts/
+    ├── tests/
+    └── .github/workflows/
 
-## For AI clients
+## Scope
 
-Read `AGENTS.md` first. It defines retrieval order, write rules, safety boundaries, and when reasoning or external tools should take over.
+This repository is currently Larry's personal food memory, not a shared multi-user database.
 
-## For contributors
+If you want your own callable food memory, fork the repository or copy the protocol and keep your own canonical history. A future network can connect independent people without mixing ownership of their raw memories.
 
-Read `SCHEMA.md` and `CONTRIBUTING.md`.
+## Important boundary
 
-For now, this repository is being tested with the owner's own records. The contribution structure is already designed for multiple authors; before broad public contribution opens, the repository should select an explicit data/content license.
+Food Memory does not maintain volatile real-world business facts such as current opening hours, routes, live availability, or rankings. Use map/business services for those at query time.
+
+Read HOW_TO_USE.md for copy-paste prompts and AGENTS.md for the machine protocol.
