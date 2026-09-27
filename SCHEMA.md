@@ -1,238 +1,157 @@
 # Experience schema v1
 
-Each eating experience is one Markdown file under:
+Each eating experience is one self-contained Markdown file under data/<year>/.
 
-```text
-data/<year>/<experience-id>.md
-```
-
-The file contains YAML front matter followed by free-form first-person experience text.
+The repository intentionally keeps historical experience records simple. A repeated visit to the same restaurant is a new experience file, not an edit to an old one.
 
 ## Minimal example
 
-```markdown
----
-schema_version: 1
-id: exp_20260924_zhangsfish_example-noodles_01
-author: github:Zhangsfish
-date: "2026-09-24"
+    ---
+    schema_version: 1
+    id: exp_20260924_zhangsfish_example-noodles_01
+    author: github:Zhangsfish
+    date: "2026-09-24"
 
-place:
-  name: 示例面馆（某商场店）
-  area: CN/石家庄
-  hint: 某商场二楼
+    place:
+      id: place_example_noodles_shijiazhuang_mall
+      name: 示例面馆（某商场店）
+      area: CN/石家庄
+      hint: 某商场二楼
 
-dishes:
-  - 牛肉面
-  - 凉菜
+    dishes:
+      - 牛肉面
+      - 凉菜
 
-cost:
-  amount: 46
-  currency: CNY
-  basis: bill_total
+    cost:
+      amount: 46
+      currency: CNY
+      basis: bill_total
 
-local_relation: visitor
-commercial_relationship: none_declared
----
+    commercial_relationship: none_declared
+    ---
 
-牛肉面28元。肉挺软，汤对我来说有点甜，下次可能还会点。
-
-凉菜18元，一般，不太想再点。
-
-我一个人一共花了46元。
-```
-
-The example above documents the format only. It is not a real experience record.
+    牛肉面28元。肉挺软，汤对我来说有点甜，下次可能还会点。
 
 ## Required fields
 
-### `schema_version`
+### schema_version
 
-Must be:
+Must be 1.
 
-```yaml
-schema_version: 1
-```
+### id
 
-### `id`
+Stable unique ID beginning with exp_.
 
-A stable unique ID beginning with `exp_`.
+The ID identifies one eating event. Do not change it because Larry later revisits the same place or changes his opinion.
 
-Recommended pattern:
+### author
 
-```text
-exp_<date>_<author>_<short-place-slug>_<sequence>
-```
+For this repository, normal records use:
 
-The ID is identity, not a description. Do not change it merely because a restaurant changes name.
+    author: github:Zhangsfish
 
-### `author`
+Forks may use their own globally understandable identifier.
 
-Globally understandable contributor identifier.
-
-For GitHub contributions, use:
-
-```yaml
-author: github:USERNAME
-```
-
-The field is a claim carried by the record; Git history provides additional provenance. Future trust systems may verify stronger identity properties separately.
-
-### `date`
-
-Historical visit date as known by the contributor.
+### date
 
 Accepted values:
+- YYYY-MM-DD
+- YYYY-MM
+- YYYY
+- unknown
 
-```text
-YYYY-MM-DD
-YYYY-MM
-YYYY
-unknown
-```
+Do not fabricate missing precision.
 
-Use `unknown` when the contributor cannot reliably supply even the year. Do not fabricate missing precision.
-
-Dated records normally live under `data/<year>/`. Records with `date: unknown` live under `data/undated/`. If the date is later recovered, update the metadata and move the file, but keep the experience `id` stable.
-
-### `place`
+### place
 
 Required:
-
-```yaml
-place:
-  name: Human-readable place name
-  area: CN/石家庄
-```
+- name — human-readable historical place name
+- area — coarse retrieval area such as CN/北京 or JP/Tokyo
 
 Optional:
+- id — stable repository-local place identity beginning with place_
+- hint — branch/disambiguation clue when needed
 
-```yaml
-  hint: 某商场二楼 / 火车站东门店 / other branch clue
-```
+place.id exists only to connect repeated visits to the same real place. It is not a live business database ID.
 
-#### `place.area`
+If place.id is absent, generated indexes derive a fallback place key from area + name. This keeps writing easy while still allowing repeated identical place names to group automatically.
 
-A coarse retrieval path, not a postal address.
+Do not store live opening hours, current route, or other volatile map facts here.
 
-Use a two-letter uppercase country code followed by the locality needed for retrieval:
+### dishes
 
-```text
-CN/石家庄
-NZ/Auckland
-JP/Tokyo
-```
-
-If a locality is ambiguous, add only the region required to disambiguate:
-
-```text
-US/Illinois/Springfield
-```
-
-Do not add district/street/coordinates merely for completeness. Current geospatial details belong to map/place services.
-
-### `dishes`
-
-A non-empty list of what the contributor consumed or meaningfully evaluated.
-
-```yaml
-dishes:
-  - 牛肉面
-  - 凉菜
-```
-
-Use the contributor's recognizable names. Do not force a global cuisine taxonomy.
+Non-empty list of what Larry consumed or meaningfully evaluated.
 
 ## Optional fields
 
-### `cost`
+### cost
 
-Only store a number whose meaning is actually known.
+    cost:
+      amount: 46
+      currency: CNY
+      basis: bill_total
 
-```yaml
-cost:
-  amount: 46
-  currency: CNY
-  basis: bill_total
-```
+Allowed basis values:
+- bill_total
+- my_share
+- per_person
+- itemized
+- unknown
 
-Allowed `basis` values:
+### local_relation
 
-- `bill_total` — total bill for the visit
-- `my_share` — amount paid/borne by the contributor
-- `per_person` — explicitly reported per-person amount
-- `itemized` — amount refers to itemized prices described in the body
-- `unknown` — amount is known but its basis is not
+Optional self-reported relation to the area:
+- resident
+- former_resident
+- frequent_visitor
+- visitor
+- unknown
 
-Do not compute and store redundant per-person figures from a total bill. AI or software can calculate them later.
+### commercial_relationship
 
-### `local_relation`
+Optional disclosure:
+- none_declared
+- invited
+- discounted
+- sponsored
+- employee
+- owner
+- other
+- not_provided
 
-Optional self-reported relationship to the place area:
+### attachments
 
-- `resident`
-- `former_resident`
-- `frequent_visitor`
-- `visitor`
-- `unknown`
+Repository-relative files under media/.
 
-Do not infer this field from where the meal occurred.
+## Body: the actual memory
 
-### `commercial_relationship`
+The body is the highest-information part of the record.
 
-Optional self-declared relationship relevant to bias/provenance:
+Prefer concrete first-person observations.
 
-- `none_declared`
-- `invited`
-- `discounted`
-- `sponsored`
-- `employee`
-- `owner`
-- `other`
-- `not_provided`
+Do not compress the experience into a universal score.
 
-`none_declared` means the contributor explicitly declares none; absence does not mean none.
+## Repeated visits
 
-### `attachments`
+Suppose Larry visits the same restaurant three times:
 
-Optional list of repository-relative files:
+- 2026-09: curry felt very oily;
+- 2027-01: a different dish was good;
+- 2027-08: curry still felt very oily.
 
-```yaml
-attachments:
-  - media/exp_xxx/photo-01.jpg
-  - media/exp_xxx/receipt.jpg
-```
+Store three experience files.
 
-Attachments are supporting material, not mandatory proof.
+The place index may group them, but the raw memories stay separate. This lets an AI distinguish "I dislike this restaurant" from "I repeatedly dislike this particular kind of dish here."
 
-## Body: the actual experience
+## Intentionally not canonical
 
-The Markdown body is the highest-information part of the record.
-
-Prefer concrete first-person observations:
-
-> 肉特别嫩，炭火味很重，我喜欢。但是酱对我来说偏甜，下次会让他少刷一点。
-
-Avoid replacing observations with compressed scores:
-
-> 口味 8.2/10，环境 7.5/10。
-
-The database should preserve observations as late as possible and let AI perform interpretation at query time.
-
-## Intentionally not in schema
-
-Do not maintain these as canonical experience fields:
-
-- latitude/longitude
-- canonical street address
-- opening hours
-- current open/closed status
-- route or distance
-- global restaurant score
-- cuisine ontology
+Do not store these as historical truth:
+- universal restaurant score
+- global cuisine ontology
 - sentiment score
 - recommendation score
-- contributor taste profile
-- AI summary of the experience
+- inferred taste profile
+- AI summary of Larry
+- current opening hours or routes
 
-They are either volatile, derivable, or interpretive.
+Self-declarations and AI-derived profiles live in separate layers; see self/README.md and derived/README.md.
